@@ -141,23 +141,27 @@ export const StatsScene: React.FC = () => {
         <StatItem value={358800} suffix="+" label="Emails sent weekly" delay={10} icon={CHART_ICON} />
 
         {/* Mini bar chart */}
-        <div style={{ display: "flex", gap: 6, alignItems: "flex-end", height: 100 }}>
+        <div style={{ display: "flex", gap: 8, alignItems: "flex-end", height: 120 }}>
           {bars.map((h, i) => {
-            const barScale = spring({
+            const barDelay = 12 + i * 4;
+            const barSpring = spring({
               frame,
               fps,
-              delay: 15 + i * 3,
-              config: { damping: 12, stiffness: 100 },
+              delay: barDelay,
+              config: { damping: 10, stiffness: 80 },
             });
+            const barHeight = h * 120 * barSpring;
+            const pulse = Math.sin(((frame - barDelay) / fps) * 2 + i * 0.5) * 2;
             return (
               <div
                 key={i}
                 style={{
-                  width: 14,
-                  height: h * 100 * barScale,
-                  borderRadius: 4,
-                  background: `linear-gradient(to top, #615FFF, #4F39F6${i % 2 === 0 ? "cc" : ""})`,
-                  opacity: 0.7 + barScale * 0.3,
+                  width: 16,
+                  height: Math.max(0, barHeight + (barSpring > 0.9 ? pulse : 0)),
+                  borderRadius: 5,
+                  background: `linear-gradient(to top, #615FFF, ${i % 2 === 0 ? "#4F39F6" : "#7C7AFF"})`,
+                  opacity: 0.75 + barSpring * 0.25,
+                  boxShadow: barSpring > 0.5 ? `0 4px 12px rgba(97,95,255,${0.2 * barSpring})` : "none",
                 }}
               />
             );

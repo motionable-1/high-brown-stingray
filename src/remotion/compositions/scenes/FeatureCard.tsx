@@ -20,12 +20,12 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const cardDelay = index * 4;
-  const cardScale = spring({ frame, fps, delay: cardDelay, config: { damping: 14, stiffness: 120 } });
-  const cardY = interpolate(cardScale, [0, 1], [60, 0]);
+  const cardDelay = 8 + index * 8;
+  const cardScale = spring({ frame, fps, delay: cardDelay, config: { damping: 12, stiffness: 80 } });
+  const cardY = interpolate(cardScale, [0, 1], [80, 0]);
 
-  const iconScale = spring({ frame, fps, delay: cardDelay + 8, config: { damping: 10 } });
-  const iconRotate = interpolate(iconScale, [0, 1], [-20, 0]);
+  const iconScale = spring({ frame, fps, delay: cardDelay + 10, config: { damping: 10 } });
+  const iconRotate = interpolate(iconScale, [0, 1], [-25, 0]);
 
   const shimmer = interpolate(frame, [20, 60], [-100, 200], {
     extrapolateLeft: "clamp",

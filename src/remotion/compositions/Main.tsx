@@ -40,7 +40,7 @@ const SFX_CHIME =
  *   Total = 120 + 150 + 150 + 150 - 15*3 + 30 = 555
  */
 
-const TRANSITION_DURATION = 15;
+const TRANSITION_DURATION = 20;
 
 /** Subtle ambient gradient that shifts over time */
 const AmbientGradient: React.FC = () => {
